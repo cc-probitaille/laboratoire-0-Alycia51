@@ -2,12 +2,10 @@ import express from 'express';
 import ExpressSession from 'express-session';
 import logger from 'morgan';
 import flash from 'express-flash-plus';
-
 import { jeuRoutes } from './routes/jeuRouter';
 
 // Creates and configures an ExpressJS web server.
 class App {
-
   // ref to Express instance
   public expressApp: express.Application;
 
@@ -38,11 +36,12 @@ class App {
   private routes(): void {
     const titreBase = 'Jeu de dés';
     let router = express.Router();
+
     // Le squelette ne traite pas la gestion des connexions d'utilisateur, mais
-    // les gabarits Pug (navbar) supportent l'affichage selon l'état de connexion 
+    // les gabarits Pug (navbar) supportent l'affichage selon l'état de connexion
     // dans l'objet user, qui peut avoir deux valeurs (p.ex. admin ou normal)
     let user;
-    // Si l'utilisateur est connecté, le gabarit Pug peut afficher des options, 
+    // Si l'utilisateur est connecté, le gabarit Pug peut afficher des options,
     // le nom de l'utilisateur et une option pour se déconnecter.
     user = { nom: 'Pierre Trudeau', hasPrivileges: true, isAnonymous: false };
     // Si user.isAnonymous est vrai, le gabarit Pug affiche une option pour se connecter.
@@ -61,13 +60,19 @@ class App {
 
     // Route pour classement (stats)
     router.get('/stats', (req, res, next) => {
+      const joueurs: Array<any> = JSON.parse(jeuRoutes.controleurJeu.joueurs);
+      const joueursAvecRatio = joueurs.map(joueur => ({
+        ...joueur,
+        ratio: joueur.lancers > 0 ? joueur.lancersGagnes / joueur.lancers : 0
+      })).sort((a, b) => b.ratio - a.ratio); // Tri par ratio décroissant
+
       res.render('stats',
         // passer objet au gabarit (template) Pug
         {
           title: `${titreBase}`,
           user: user,
           // créer nouveau tableau de joueurs qui est trié par ratio
-          joueurs: JSON.parse(jeuRoutes.controleurJeu.joueurs)
+          joueurs: joueursAvecRatio
         });
     });
 
@@ -90,12 +95,9 @@ class App {
       return res.redirect('/');
     });
 
-
     this.expressApp.use('/', router);  // routage de base
-
     this.expressApp.use('/api/v1/jeu', jeuRoutes.router);  // tous les URI pour le scénario jeu (DSS) commencent ainsi
   }
-
 }
 
 export default new App().expressApp;
