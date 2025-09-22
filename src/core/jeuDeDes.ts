@@ -5,7 +5,6 @@ import { AlreadyExistsError } from "./errors/alreadyExistsError";
 
 export class JeuDeDes {
     // classe contrôleur GRASP, car JeuDeDes est un objet racine dans le MDD
-
     // map des Joueurs
     private _joueurs: Map<string, Joueur>;
     private _d1: De;
@@ -20,13 +19,10 @@ export class JeuDeDes {
     /**
      *  opérations systèmes (du DSS), responsabilités données aux contrôleur GRASP
      */
-
     public demarrerJeu(nom: string): string {
-
         if (this._joueurs.get(nom)) {
             throw new AlreadyExistsError(`Joueur '${nom}' existe déjà.`);
         }
-
         const joueur = new Joueur(nom);
         this._joueurs.set(nom, joueur);
         // ne pas retourner l'objet de la couche domaine
@@ -68,7 +64,22 @@ export class JeuDeDes {
         return JSON.stringify(resultat);
     }
 
-    // d'autres méthodes (des RDCU)
+    /**
+     * Opération système pour redémarrer le jeu
+     * Responsabilité assignée au contrôleur GRASP (JeuDeDes)
+     */
+    public redemarrerJeu(): string {
+        // Selon RDCU: déléguer à l'expert (Map) pour vider la collection
+        this._joueurs.clear();
+        
+        const resultat = {
+            message: "Le jeu a été redémarré. Tous les joueurs ont été supprimés."
+        };
+        
+        // ne pas retourner l'objet de la couche domaine
+        return JSON.stringify(resultat);
+    }
+
     brasser() {
         this._d1.brasser();
         this._d2.brasser();
@@ -81,5 +92,4 @@ export class JeuDeDes {
     public get joueurs() {
         return JSON.stringify(Array.from(this._joueurs.values()));
     }
-
 }
