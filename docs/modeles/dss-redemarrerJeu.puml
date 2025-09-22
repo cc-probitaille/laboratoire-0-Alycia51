@@ -1,1 +1,15 @@
-// Vous devez compléter ce fichier
+@startuml
+skinparam backgroundColor white
+skinparam sequenceArrowThickness 2
+skinparam sequenceLifeLineBorderColor black
+skinparam sequenceParticipantBorderColor black
+skinparam sequenceActorBorderColor black
+
+title DSS pour le scénario **Redémarrer**
+
+actor ":Joueur" as joueur
+participant ":Système" as systeme
+
+joueur -> systeme : redémarrerJeu()
+
+@enduml
