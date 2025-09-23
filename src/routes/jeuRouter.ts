@@ -15,6 +15,20 @@ export class JeuRouter {
   }
 
   /**
+   * obtenir la liste des joueurs
+   */
+  public obtenirJoueurs(req: Request, res: Response, next: NextFunction) {
+    try {
+      const joueurs = this._controleurJeu.joueurs;
+      const joueursArray = JSON.parse(joueurs);
+      res.status(200)
+        .send(joueursArray);
+    } catch (error) {
+      this._errorCode500(error, req, res);
+    }
+  }
+
+  /**
    * Initialiser le router
    */
   constructor() {
@@ -55,21 +69,25 @@ export class JeuRouter {
   public jouer(req: Request, res: Response, next: NextFunction) {
     const nom = req.params.nom;
     try {
-      // Invoquer l'opération système (du DSS) dans le contrôleur GRASP
+      const joueurs = JSON.parse(this._controleurJeu.joueurs);
+      const joueur = joueurs.find((j: any) => j.nom === nom);
+      if (!joueur) {
+        return res.status(404).send({ error: `Joueur ${nom} non trouvé` });
+      }
+
       const resultat = this._controleurJeu.jouer(nom);
       const resultatObj = JSON.parse(resultat);
-      // flash un message selon le résultat
-      const key = resultatObj.somme == 7 ? 'win' : 'info';
+      const key = resultatObj.somme <= 10 ? 'win' : 'info';
       req.flash(key,
-        `Résultat pour ${nom}: ${resultatObj.v1} + ${resultatObj.v2} = ${resultatObj.somme}`);
-      res.status(200)
-        .send({
-          message: 'Success',
-          status: res.status,
-          resultat
-        });
-    } catch (error) {
-      // console.error(error);
+        `Résultat pour ${nom}: ${resultatObj.v1} + ${resultatObj.v2} + ${resultatObj.v3} = ${resultatObj.somme}`);
+      res.status(200).send({
+        message: 'Success',
+        status: res.status,
+        resultat
+      });
+    } 
+    
+    catch (error) {
       this._errorCode500(error, req, res);
     }
   }
@@ -131,6 +149,7 @@ export class JeuRouter {
     this._router.get('/jouer/:nom', this.jouer.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
     this._router.get('/terminerJeu/:nom', this.terminerJeu.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
     this._router.get('/redemarrerJeu', this.redemarrerJeu.bind(this)); // pour .bind voir https://stackoverflow.com/a/15605064/1168342
+    this._router.get('/obtenirJoueurs', this.obtenirJoueurs.bind(this)); // Route pour obtenir la liste des joueurs
   }
 }
 

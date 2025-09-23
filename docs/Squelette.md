@@ -2,7 +2,7 @@
 
 - <nomComplet1>Alycia Ben Ihaddadene</nomComplet1>
 - <courriel1>alycia.ben-ihaddadene.1@ens.etsmtl.ca</courriel1>
-- <codeMoodle1>AU47470</codeMoodle1>
+- <codeMoodle1>AU47470 - BENA65340401</codeMoodle1>
 - <githubAccount1>Alycia51</githubAccount1>
 
 # Squelette pour un API simple dans Node, Express et TypeScript
@@ -170,7 +170,12 @@ Voici la même figure, mais sous forme de diagramme de séquence avec l'acteur. 
 
 ### Diagramme de cas d'utilisation
 
-![Diagramme de cas d'utilisation](https://raw.githubusercontent.com/cc-probitaille/laboratoire-0-Alycia51/refs/heads/master/docs/modeles/dcu.puml)
+<!-- Essai avec le lien RAW (ne s'affiche pas dans le PDF) -->
+![Diagramme de cas d'utilisation - version RAW](https://raw.githubusercontent.com/cc-probitaille/laboratoire-0-Alycia51/refs/heads/master/docs/modeles/dcu.puml)
+
+<!-- Version avec proxy PlantUML (s'affiche correctement dans le PDF) -->
+![Diagramme de cas d'utilisation - version Proxy](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/cc-probitaille/laboratoire-0-Alycia51/master/docs/modeles/dcu.puml)
+
 
 ### Modèle du domaine
 
@@ -200,8 +205,9 @@ Voici la même figure, mais sous forme de diagramme de séquence avec l'acteur. 
 
 - d1.valeur est devenue un nombre entier aléatoire entre 1 et 6
 - d2.valeur est devenue un nombre entier aléatoire entre 1 et 6
+- d3.valeur est devenue un nombre entier aléatoire entre 1 et 6
 - j.nbLancers a été incrémenté sur une base de correspondance avec nom
-- j.nbLancersGagnés a été incrémenté si la totale de d1.valeur et d2.valeur est égale à 7
+- j.nbLancersGagnés a été incrémenté si la totale de d1.valeur, d2.valeur, d3.valeur est plus petite ou égale à 10
 
 **RDCU**
 
@@ -215,6 +221,12 @@ Voici la même figure, mais sous forme de diagramme de séquence avec l'acteur. 
 
 ![Diagramme de séquence, terminerJeu](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/profcfuhrmanets/log210-jeu-de-des-node-express-ts/master/docs/modeles/rdcu-terminerJeu.puml)
 
-![Diagramme de classes logicielles](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/profcfuhrmanets/log210-jeu-de-des-node-express-ts/master/docs/modeles/rdcu-terminerJeu.puml)
+
+<!-- Essai avec le lien raw (ne s'affiche pas dans le PDF) -->
+![Diagramme de classes logicielles - version RAW](https://raw.githubusercontent.com/cc-probitaille/laboratoire-0-Alycia51/refs/heads/master/docs/modeles/App.puml)
+
+<!-- Version avec proxy PlantUML (s'affiche correctement dans le PDF) -->
+![Diagramme de classes logicielles - version Proxy](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/cc-probitaille/laboratoire-0-Alycia51/master/docs/modeles/App.puml)
+
 
 [README.md](../README.md)

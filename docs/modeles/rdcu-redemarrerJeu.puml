@@ -5,18 +5,13 @@ skinparam sequenceLifeLineBorderColor black
 skinparam sequenceParticipantBorderColor black
 skinparam noteBackgroundColor lightyellow
 skinparam noteBorderColor black
-
 title RDCU pour redémarrerJeu
 
 participant ":JeuDeDes" as jeu
-participant "joueurs:\nMap<String,Joueur>" as joueurs
+participant "joueurs:\nMap<String, Joueur>" as joueurs
 
--> jeu : redémarrerJeu()
-
+-> jeu : redemarrerJeu()
 note right of jeu : selon Contrôleur\n(JeuDeDés est\nl'objet racine)
-
 jeu -> joueurs : clear()
-
 note right of joueurs : selon Expert
-
 @enduml

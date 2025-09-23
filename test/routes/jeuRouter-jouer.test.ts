@@ -22,8 +22,11 @@ describe('GET /api/v1/jeu/jouer/:id', () => {
             expect(resultat.lancers).toBe(i + 1);
             expect(resultat.v1).toBeWithin(1, 7);
             expect(resultat.v2).toBeWithin(1, 7);
-            expect(resultat.somme).toBe(resultat.v1 + resultat.v2);
+            expect(resultat.v3).toBeWithin(1, 7);
+            expect(resultat.somme).toBe(resultat.v1 + resultat.v2 + resultat.v3);
             expect(resultat.nom).toBe(testNom1);
+            // Vérification que la somme est dans la plage valide pour trois dés
+            expect(resultat.somme).toBeWithin(3, 18);
         });
     }
 
@@ -31,7 +34,7 @@ describe('GET /api/v1/jeu/jouer/:id', () => {
         const response = await request.get('/api/v1/jeu/jouer/' + testNom2);
         expect(response.status).toBe(404);
         expect(response.type).toBe("application/json");
-        expect(response.body.error).toInclude("n'existe pas");
+        expect(response.body.error).toInclude("non trouvé");
         expect(response.body.error).toInclude(testNom2);
     });
 });
