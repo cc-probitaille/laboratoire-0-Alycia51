@@ -13,12 +13,15 @@ if (Number.isNaN(port)) {
 const server = App.listen(port, () => {
   console.info(`Serveur disponible à http://localhost:${port}`);
 });
+
 server.on('error', onError);
 server.on('listening', onListening);
 
 function onError(error: NodeJS.ErrnoException) {
   if (error.syscall !== 'listen') throw error;
+
   let bind = (typeof port === 'string') ? 'Pipe ' + port : 'Port ' + port;
+
   switch (error.code) {
     case 'EACCES':
       console.error(`${bind} requires elevated privileges`);

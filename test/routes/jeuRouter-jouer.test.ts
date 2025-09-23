@@ -25,6 +25,7 @@ describe('GET /api/v1/jeu/jouer/:id', () => {
             expect(resultat.v3).toBeWithin(1, 7);
             expect(resultat.somme).toBe(resultat.v1 + resultat.v2 + resultat.v3);
             expect(resultat.nom).toBe(testNom1);
+            
             // Vérification que la somme est dans la plage valide pour trois dés
             expect(resultat.somme).toBeWithin(3, 18);
         });

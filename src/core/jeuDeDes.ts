@@ -9,13 +9,13 @@ export class JeuDeDes {
     private _joueurs: Map<string, Joueur>;
     private _d1: De;
     private _d2: De;
-    private _d3: De; // Nouveau troisième dé
+    private _d3: De;
 
     constructor() {
         this._joueurs = new Map<string, Joueur>();
         this._d1 = new De();
         this._d2 = new De();
-        this._d3 = new De(); // Initialisation du troisième dé
+        this._d3 = new De();
     }
 
     /**
@@ -38,7 +38,7 @@ export class JeuDeDes {
         }
         const somme = this.brasser()
         joueur.lancer();
-        const gagne = somme <= 10; // Nouvelle condition de victoire
+        const gagne = somme <= 10; 
         if (gagne) joueur.gagner();
         const resultat = {
             nom: nom,
@@ -47,7 +47,7 @@ export class JeuDeDes {
             reussites: joueur.lancersGagnes,
             v1: this._d1.valeur,
             v2: this._d2.valeur,
-            v3: this._d3.valeur, // Ajout de la valeur du troisième dé
+            v3: this._d3.valeur, 
             message: `Vous avez ${(gagne ? "gagné!!!" : "perdu.")}`
         };
         // ne pas retourner l'objet de la couche domaine
@@ -83,15 +83,15 @@ export class JeuDeDes {
         return JSON.stringify(resultat);
     }
 
-    // Méthode modifiée pour brasser trois dés
+    // Brassage des dés
     brasser() {
         this._d1.brasser();
         this._d2.brasser();
-        this._d3.brasser(); // Brasser le troisième dé
+        this._d3.brasser();
         const v1 = this._d1.valeur;
         const v2 = this._d2.valeur;
-        const v3 = this._d3.valeur; // Obtenir la valeur du troisième dé
-        const somme = v1 + v2 + v3; // Somme des trois dés
+        const v3 = this._d3.valeur; 
+        const somme = v1 + v2 + v3;
         return somme;
     }
 

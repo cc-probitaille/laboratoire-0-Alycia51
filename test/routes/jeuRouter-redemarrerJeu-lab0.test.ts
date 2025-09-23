@@ -32,14 +32,14 @@ describe('redemarrerJeu.test.ts', () => {
     const response = await request(app).get('/api/v1/jeu/obtenirJoueurs');
 
     expect(response.status).toBe(200);
-    expect(response.body).toEqual([]); // La liste des joueurs doit être vide
+    expect(response.body).toEqual([]); 
   });
 
   it('devrait retourner 404 quand on essaie de jouer après redemarrerJeu', async () => {
     // Essayer de jouer avec le joueur créé avant le redémarrage
     const response = await request(app).get(`/api/v1/jeu/jouer/${testNom}`);
 
-    expect(response.status).toBe(404); // Devrait renvoyer 404
+    expect(response.status).toBe(404);
     expect(response.body.error).toBe(`Joueur ${testNom} non trouvé`);
   });
 });
